@@ -24,6 +24,10 @@
           <div class="border-t border-gray-500 py-2 mt-6">
             Items Left: {{ itemsLeft }}
           </div>
+          <div class="border-t border-gray-500 py-2 mt-1">
+            <div>x: {{ x }}</div>
+            <div>y: {{ y }}</div>
+          </div>
         </div>
         <div v-else class="mt-4">
           Nothing to do! Add a new item...
@@ -35,10 +39,14 @@
 
 <script>
 import { computed, onMounted, watch, ref } from 'vue'
+import { useMousePosition } from '../functions/useMousePosition'
+
 export default {
   props: ['title'],
 
   setup(props) {
+    const { x, y } = useMousePosition()
+
     const todoFromInput = ref('')
     const todoId = ref(4)
     const todos = ref([
@@ -97,7 +105,8 @@ export default {
       todos,
       addTodo,
       deleteTodo,
-      itemsLeft
+      itemsLeft,
+      x, y
     }
   }
 }
